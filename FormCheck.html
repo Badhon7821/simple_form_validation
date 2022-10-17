@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form Check</title>
+    <style type="text/css">
+      p {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <form method="post" action="right.html" id="formCheck">
+      <p>Register</p>
+      <p></p>
+      <table align="center">
+        <tr>
+          <td>UserName:</td>
+          <td><input type="text" name="username" id="username" /></td>
+        </tr>
+        <tr>
+          <td>Password:</td>
+          <td><input type="password" name="password" id="password" /></td>
+        </tr>
+        <tr>
+          <td>RePassword:</td>
+          <td><input type="password" name="repassword" id="repassword" /></td>
+        </tr>
+        <tr>
+          <td>Email:</td>
+          <td><input type="text" name="email" id="email" /></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input type="submit" value="submit" /></td>
+        </tr>
+      </table>
+      <div><p id="warning"></p></div>
+    </form>
+
+    <script text="text/javascript">
+      function nameCheck() {
+        var username = document.getElementById("username").value; //get the value of input "username"
+
+        if (username == "") {
+          // check whether username is empty
+          elWarn.innerHTML = "username cannot be empty!";
+          return false;
+        }
+        return true;
+      }
+
+      function passwordCheck() {
+        var password = document.getElementById("password").value;
+        // write your codes here
+        if (password == "") {
+          // check whether password is empty
+          elWarn.innerHTML = "password cannot be empty!";
+          return false;
+        } else if (password.length < 8) {
+          elWarn.innerHTML = "password must be 8-16 character!";
+          return false;
+        }
+        return true;
+      }
+
+      function rePasswordCheck() {
+        // write your codes here
+        var password = document.getElementById("password").value;
+        var repassword = document.getElementById("repassword").value;
+        if (repassword == "") {
+          elWarn.innerHTML = " repassword can not be empty";
+          return false;
+        }
+        if (repassword !== password) {
+          elWarn.innerHTML = " repassword should be the same as password!";
+          console.log(password);
+          console.log(repassword);
+          return false;
+        } else {
+          return true;
+        }
+      }
+
+      function emailCheck() {
+        // write your codes here
+        var email = document.getElementById("email").value; //get the value of input "email"
+        var validRegex =
+          /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        if (email == "") {
+          // check whether email is empty
+          elWarn.innerHTML = "email cannot be empty!";
+          return false;
+        } else if (email.match(validRegex)) {
+          return true;
+        } else {
+          elWarn.innerHTML = "invalid email address";
+        }
+      }
+
+      function checkTerms(e) {
+        if (
+          !nameCheck() ||
+          !passwordCheck() ||
+          !rePasswordCheck() ||
+          !emailCheck() ||
+          !birthdayCheck()
+        ) {
+          e.preventDefault();
+        }
+      }
+
+      var elForm = document.getElementById("formCheck");
+      var elWarn = document.getElementById("warning");
+      elForm.addEventListener("submit", checkTerms, false);
+    </script>
+  </body>
+</html>
